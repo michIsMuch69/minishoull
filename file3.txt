@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
+
+int parse_numeric_arg(char *arg) {
+    char *endptr;
+    long num = strtol(arg, &endptr, 10);
+
+    // Check if entire string was a valid number and within range
+    if (*endptr != '\0' || endptr == arg) {
+        return -1; // Indicate error for non-numeric values
+    }
+    return (int)(num % 256); // Return modulo 256
+}
+
+int ft_exit(char **args, int last_status) {
+    if (!args[1]) { // No arguments to exit, use last status
+        printf("Exiting with status %d\n", last_status);
+        exit(last_status);
+    } else {
+        if (args[2]) { // More than one argument
+            if (parse_numeric_arg(args[1]) != -1) {
+                printf("too many arguments\n");
+                return 1; // Return but do not exit, status is 1
+            }
+        }
+        int status = parse_numeric_arg(args[1]);
+        if (status == -1) {
+            printf("numeric argument required\n");
+            exit(2); // Exit with status 2 for non-numeric input
+        }
+        printf("Exiting with status %d\n", status);
+        exit(status);
+    }
+    return 0; // Should not reach here, but just in case
+}
+
+int status = execute_command(args);  // This function handles all command executions
+
+if (status == -1) {
+    break;  // Break out of the loop if exit signal is received
+}

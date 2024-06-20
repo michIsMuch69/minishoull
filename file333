@@ -1,0 +1,9 @@
+redir_output: output redirection completed.
+Child process 1: Output redirection done.
+exec_handler: tab_size = 1
+Executing single command.
+exec_single_command: Executing single command.
+Child process: Executing command: /usr/bin/cat
+redir_input: i = 0, prev_fd = 0
+define_input_fd: i = 0
+[?2004h>^C[?2004l
