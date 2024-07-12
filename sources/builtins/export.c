@@ -6,27 +6,31 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 10:24:02 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/12 10:52:41 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/12 11:52:38 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void init_exported_env(t_data *data)
+void init_exported_env(t_data *data, t_table *export)
 {
     int i;
 
 	i = 0;
-    g_exported_env = malloc((data->env.size + 1) * sizeof(char *));
-    if (!g_exported_env)
+    export->tab = malloc((data->env.size + 1) * sizeof(char *));
+    if (!export->tab)
         return;
     while (i < data->env.size)
     {
-        g_exported_env[i] = ft_strdup(data->env.tab[i]);
+        export->tab[i] = ft_strdup(data->env.tab[i]);
 		i++;
     }
-    g_exported_env[data->env.size] = NULL;
-    g_exported_env_size = data->env.size;
+    while (i <= data->env.size)
+	{
+        export->tab[i] = NULL;
+        i++;
+    }
+    export->size = data->env.size;
 }
 
 char **add_to_exported(char **exported, int *size, const char *new_var)
@@ -81,18 +85,18 @@ char **add_to_env(char **env, int *size, const char *new_var)
     return (new_env);
 }
 
-void update_env(char **env, int i, char *key, char *value)
+void update_env(t_data *data, int i, char *key, char *value)
 {
     int	len;
 	
 	len = ft_strlen(key) + ft_strlen(value) + 2;
-    free(env[i]);
-    env[i] = malloc(len);
-    if (!env[i])
+    free(data->env.tab[i]);
+    data->env.tab[i] = malloc(len * sizeof(char));
+    if (!data->env.tab[i])
         return ;
-    ft_strcpy(env[i], key);
-    ft_strcat(env[i], "=");
-    ft_strcat(env[i], value);
+    ft_strcpy(data->env.tab[i], key);
+    ft_strcat(data->env.tab[i], "=");
+    ft_strcat(data->env.tab[i], value);
 }
 
 void update_exported(char **exported, int i, char *key)
@@ -108,7 +112,6 @@ int is_valid_identifier(char *key)
 	i = 0;
     if (!key || !key[0] || (key[0] >= '0' && key[0] <= '9'))
         return (0);
-
     while (key[i])
     {
         if (!(key[i] == '_' || ft_isalnum(key[i])))
@@ -119,21 +122,21 @@ int is_valid_identifier(char *key)
     return (1);
 }
 
-void update_or_add_to_exported(char *key)
+void update_or_add_to_exported(char *key, t_table *export)
 {
     int i;
 
 	i = 0;
-    while (i < g_exported_env_size)
+    while (i < export->size)
     {
-        if (ft_strncmp(g_exported_env[i], key, ft_strlen(key)) == 0 && (g_exported_env[i][ft_strlen(key)] == '\0' || g_exported_env[i][ft_strlen(key)] == '='))
+        if (ft_strncmp(export->tab[i], key, ft_strlen(key)) == 0 && (export->tab[i][ft_strlen(key)] == '\0' || export->tab[i][ft_strlen(key)] == '='))
         {
-            update_exported(g_exported_env, i, key);
+            update_exported(export->tab, i, key);
             return;
         }
 		i++;
     }
-    g_exported_env = add_to_exported(g_exported_env, &g_exported_env_size, key);
+    export->tab = add_to_exported(export->tab, &export->size, key);
 }
 
 void update_or_add_to_env(char *key, char *value, t_data *data)
@@ -149,49 +152,50 @@ void update_or_add_to_env(char *key, char *value, t_data *data)
     {
         if (ft_strncmp(data->env.tab[i], key, ft_strlen(key)) == 0 && data->env.tab[i][ft_strlen(key)] == '=')
         {
-            update_env(data->env.tab, i, key, value);
+            update_env(data, i, key, value);
             return;
         }
 		i++;
     }
-    *new_var = malloc(len * sizeof(char));
+    new_var = malloc(len * sizeof(char));
 	if (!new_var)
 		return ;
-    if (new_var)
-    {
-        ft_strcpy(new_var, key);
-        ft_strcat(new_var, "=");
-        ft_strcat(new_var, value);
-        data->env.tab = add_to_env(data->env.tab, &data->env.size, new_var);
-        free(new_var);
-    }
+	ft_strcpy(new_var, key);
+	printf("new_var before cat = %s\n", new_var);
+	ft_strcat(new_var, "=");
+	printf("new_var after 1st cat = %s\n", new_var);
+	ft_strcat(new_var, value);
+	printf("new_var after 2nd cat = %s\n", new_var);
+
+	data->env.tab = add_to_env(data->env.tab, &data->env.size, new_var);
+	free(new_var);
 }
 
-void process_export_arg(char *arg, t_data *data)
+void	process_export_arg(int i, t_data *data, t_table *export)
 {
     char	*equals_pos;
     char	*value;
     char	*key;
 	
-	equals_pos = ft_strchr(arg, '=');
+	equals_pos = ft_strchr(data->args.tab[i], '=');
 	key = NULL;
 	value = NULL;
     if (equals_pos)
     {
-        key = ft_substr(arg, 0, equals_pos - arg);
+        key = ft_substr(data->args.tab[i], 0, equals_pos - data->args.tab[i]);
         value = ft_strdup(equals_pos + 1);
     }
     else
-        key = ft_strdup(arg);
+        key = ft_strdup(data->args.tab[i]);
     if (!is_valid_identifier(key))
     {
-        printf("export: '%s': not a valid identifier\\n", arg);
+        printf("export: '%s': not a valid identifier\\n", data->args.tab[i]);
         free(key);
         if (value)
             free(value);
         return ;
     }
-    update_or_add_to_exported(key);
+    update_or_add_to_exported(key, export);
     if (value)
     {
         update_or_add_to_env(key, value, data);
@@ -200,28 +204,28 @@ void process_export_arg(char *arg, t_data *data)
     free(key);
 }
 
-int ft_export(char **args, t_data *data) // 
+int ft_export(t_data *data, t_table *export) // 
 {
-	static t_table export;
     int i;
 	
 	i = 1;
-	if (!export.tab)
-		init_exported_env(data);
-    while (args[i])
+	
+    while (data->args.tab[i])
     {
-        process_export_arg(args[i], data);
+        process_export_arg(i, data, export);
         i++;
     }
     return 0;
 }
 
-int ft_export_print(void)
+int ft_export_print(t_table *export)
 {
-    int i = 0;
-    while (g_exported_env[i])
+    int	i;
+	
+	i = 0;
+    while (export->tab[i])
     {
-        printf("declare -x %s\n", g_exported_env[i]);
+        printf("declare -x %s\n", export->tab[i]);
         i++;
     }
     return 0;

@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:39:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/12 10:39:06 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/12 11:53:35 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,17 @@ int exec_builtin_parent(t_data *data, int tab_size, int i, int **fd)
         // {
         //     init_exported_env(data);
         // }
-
+		static t_table export;
+		
+		if (!export.tab)
+			init_exported_env(data, &export);
         if (data[i].args.tab[1] == NULL)
         {
-            data[0].exit_status = ft_export_print(); // (data[0].env)
+            data[0].exit_status = ft_export_print(&export); // (data[0].env)
         }
         else
         {
-            data[0].exit_status = ft_export(data[i].args.tab, data); // export : (data, i tab_size);
+            data[0].exit_status = ft_export(data, &export); // export : (data, i tab_size);
         }
     }
     else if (ft_strcmp(data[i].args.tab[0], "unset") == 0)

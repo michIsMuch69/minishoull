@@ -28,6 +28,7 @@
 #include <readline/history.h>
 #include <stdbool.h>
 #include <errno.h>
+#include <signal.h>
 
 extern char **g_exported_env;
 extern int g_exported_env_size;
@@ -58,12 +59,12 @@ int		ft_cd(char **args, char **env);
 int		ft_pwd(void);
 int		ft_echo(char **args);
 int		ft_env(char **env);
-int ft_export_print(void);
+int		ft_export_print(t_table *export);
 
 int		ft_unset(char *var, t_table *env);
 //int		ft_export(t_table args , t_table env);
-void init_exported_env(t_data *data);
-int ft_export(char **args, t_data *data);
+void	init_exported_env(t_data *data, t_table *export);
+int		ft_export(t_data *data, t_table *export);
 
 
 
@@ -73,7 +74,7 @@ int ft_export(char **args, t_data *data);
 int		is_builtin_parent(t_data *data);
 int		is_builtin_child(t_data *data);
 
-int		exec_builtin_parent(t_data *data, int tab_size, int i, int **fd);
+int exec_builtin_parent(t_data *data,int tab_size, int i, int **fd);
 int		exec_builtin_child(t_data *data, int tab_size, int i, int **fd);
 int		is_numeric_str(char *str);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sig_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
+/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 15:34:59 by florian           #+#    #+#             */
-/*   Updated: 2024/07/11 16:22:13 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/07/12 11:20:30 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void    sig_manager(int signum)
     if (write(1, "\n", 1) == -1)
         exit(EXIT_FAILURE);
     rl_on_new_line();
-   // rl_replace_line("", 0);
+    rl_replace_line("", 0);
     rl_redisplay();
 }
 
