@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_exec.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
+/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:39:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/11 18:47:27 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/07/12 10:39:06 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,18 @@ int exec_builtin_parent(t_data *data, int tab_size, int i, int **fd)
     }
     else if (ft_strcmp(data[i].args.tab[0], "export") == 0)
     {
-        if (g_exported_env == NULL)
-        {
-            init_exported_env(data[i].env.tab, data[i].env.size);
-        }
+        // if (g_exported_env == NULL)
+        // {
+        //     init_exported_env(data);
+        // }
 
         if (data[i].args.tab[1] == NULL)
         {
-            data[0].exit_status = ft_export_print();
+            data[0].exit_status = ft_export_print(); // (data[0].env)
         }
         else
         {
-            data[0].exit_status = ft_export(data[i].args.tab, &data[i].env.tab, &data[i].env.size);
+            data[0].exit_status = ft_export(data[i].args.tab, data); // export : (data, i tab_size);
         }
     }
     else if (ft_strcmp(data[i].args.tab[0], "unset") == 0)

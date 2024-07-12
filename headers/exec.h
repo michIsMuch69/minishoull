@@ -62,8 +62,8 @@ int ft_export_print(void);
 
 int		ft_unset(char *var, t_table *env);
 //int		ft_export(t_table args , t_table env);
-int ft_export(char **args, char ***env, int *env_size);
-void init_exported_env(char **env, int env_size);
+void init_exported_env(t_data *data);
+int ft_export(char **args, t_data *data);
 
 
 

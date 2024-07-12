@@ -6,7 +6,7 @@
 #    By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 11:07:17 by fberthou          #+#    #+#              #
-#    Updated: 2024/07/10 12:28:14 by jedusser         ###   ########.fr        #
+#    Updated: 2024/07/12 10:25:16 by jedusser         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,8 @@ SRC		=	$(MAIN_PATH)/main.c $(MAIN_PATH)/utils.c $(MAIN_PATH)/sig_manager.c\
 			$(EXEC_PATH)/redirections.c $(EXEC_PATH)/redirections_utils.c $(EXEC_PATH)/fds_management.c \
 			$(EXEC_PATH)/heredoc.c	$(EXEC_PATH)/pipe.c	 \
 			\
-			$(BUILTINS_PATH)/builtins_parent.c	$(BUILTINS_PATH)/builtins_child.c	$(BUILTINS_PATH)/builtins_utils.c $(BUILTINS_PATH)/builtins_exec.c
+			$(BUILTINS_PATH)/builtins_parent.c	$(BUILTINS_PATH)/builtins_child.c	$(BUILTINS_PATH)/builtins_utils.c \
+			$(BUILTINS_PATH)/builtins_exec.c $(BUILTINS_PATH)/export.c
 
 ### ---- TEMPORARY FILES ---- ###
 OBJ	= $(SRC:$(SRC_PATH)/%.c=$(BUILD_PATH)/%.o)
