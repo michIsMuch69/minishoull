@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 10:24:02 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/12 11:52:38 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/12 12:49:13 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void update_env(t_data *data, int i, char *key, char *value)
 	
 	len = ft_strlen(key) + ft_strlen(value) + 2;
     free(data->env.tab[i]);
-    data->env.tab[i] = malloc(len * sizeof(char));
+    data->env.tab[i] = ft_calloc(len, sizeof(char));
     if (!data->env.tab[i])
         return ;
     ft_strcpy(data->env.tab[i], key);
@@ -99,10 +99,10 @@ void update_env(t_data *data, int i, char *key, char *value)
     ft_strcat(data->env.tab[i], value);
 }
 
-void update_exported(char **exported, int i, char *key)
+void update_exported(char **exported, int i, char *new_var)
 {
     free(exported[i]);
-    exported[i] = ft_strdup(key);
+    exported[i] = ft_strdup(new_var);
 }
 
 int is_valid_identifier(char *key)
@@ -139,6 +139,8 @@ void update_or_add_to_exported(char *key, t_table *export)
     export->tab = add_to_exported(export->tab, &export->size, key);
 }
 
+
+
 void update_or_add_to_env(char *key, char *value, t_data *data)
 {
     int		i;
@@ -153,11 +155,11 @@ void update_or_add_to_env(char *key, char *value, t_data *data)
         if (ft_strncmp(data->env.tab[i], key, ft_strlen(key)) == 0 && data->env.tab[i][ft_strlen(key)] == '=')
         {
             update_env(data, i, key, value);
-            return;
+            return ;
         }
 		i++;
     }
-    new_var = malloc(len * sizeof(char));
+    new_var = ft_calloc(len,sizeof(char));
 	if (!new_var)
 		return ;
 	ft_strcpy(new_var, key);
@@ -166,7 +168,6 @@ void update_or_add_to_env(char *key, char *value, t_data *data)
 	printf("new_var after 1st cat = %s\n", new_var);
 	ft_strcat(new_var, value);
 	printf("new_var after 2nd cat = %s\n", new_var);
-
 	data->env.tab = add_to_env(data->env.tab, &data->env.size, new_var);
 	free(new_var);
 }
@@ -195,9 +196,13 @@ void	process_export_arg(int i, t_data *data, t_table *export)
             free(value);
         return ;
     }
+	// if !value : 
     update_or_add_to_exported(key, export);
+	//else 
+ 
     if (value)
     {
+	//   update_or_add_to_exported(new_var, export);
         update_or_add_to_env(key, value, data);
         free(value);
     }

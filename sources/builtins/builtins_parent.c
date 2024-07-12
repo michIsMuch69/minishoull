@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 08:27:25 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/12 10:24:45 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/12 12:04:47 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int ft_cd(char **args, char **env)
         perror("getcwd");
 	free(home);
     free(oldpwd);
-    return 0;
+    return (0);
 }
 
 
