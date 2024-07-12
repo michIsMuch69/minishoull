@@ -6,7 +6,7 @@
 /*   By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:10:11 by fberthou          #+#    #+#             */
-/*   Updated: 2024/07/09 11:07:44 by fberthou         ###   ########.fr       */
+/*   Updated: 2024/07/11 10:40:36 by fberthou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,16 @@ static char	*extract_word(char *str, int start)
 	return (tmp);
 }
 
-int	change_value(char **token, char **envp)
+int	change_value(char **token, char **envp, int last_exit)
 {
 	int		i;
 	int		ret_value;
 	char	*word;
 	char	*var_content;
 
+	ret_value = include_exitcode(token, last_exit);
+	if (ret_value)
+		return (ret_value);
 	i = include_char(token[0], '$', 0);
 	if (i == -1)
 		return (0);
@@ -55,10 +58,8 @@ int	change_value(char **token, char **envp)
 	if (!word)
 		return (-1);
 	ret_value = ft_getenv(word, envp, &var_content);
-	if (ret_value == 1)
-		return (free(word), 1);
-	else if (ret_value == -1)
-		return (free(word), -1);
+	if (ret_value)
+		return (free(word), ret_value);
 	free(word);
 	return (join_str(token, i - 1, find_end(*token, i), var_content));
 }

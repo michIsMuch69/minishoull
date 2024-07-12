@@ -29,6 +29,9 @@
 #include <stdbool.h>
 #include <errno.h>
 
+extern char **g_exported_env;
+extern int g_exported_env_size;
+
 void	print_tab(t_table tab);
 void	print_struct(t_data *data, int tab_size);
 
@@ -37,7 +40,6 @@ void	print_struct(t_data *data, int tab_size);
 int		ft_perror(char *err_message);
 void	free_tab(t_table *tab, int start);
 void	free_struct(t_data *struc, int tab_size);
-int		init_sighandler(t_data *data);
 
 /*===========================build_exec_path.c===============================*/
 
@@ -48,8 +50,6 @@ int 	check_all_dirs(t_data *data, char **directory);
 
 int		ft_strcmp(char *s1, char *s2);
 void	free_array(char **array);
-static int	init_structure(t_data *data);
-void	handle_error(const char *message, int exit_code);
 
 /*===========================builtins.c===============================*/
 
@@ -58,8 +58,14 @@ int		ft_cd(char **args, char **env);
 int		ft_pwd(void);
 int		ft_echo(char **args);
 int		ft_env(char **env);
+int ft_export_print(void);
+
 int		ft_unset(char *var, t_table *env);
-int		ft_export(t_table args , t_table env);
+//int		ft_export(t_table args , t_table env);
+int ft_export(char **args, char ***env, int *env_size);
+void init_exported_env(char **env, int env_size);
+
+
 
 
 /*===========================builtins_utils.c===============================*/
@@ -75,7 +81,6 @@ int		is_numeric_str(char *str);
 /*===========================redirections.c===============================*/
 
 int		handle_redirection(t_data *data);
-int		close_fds(int *in_out_fd);
 
 /*===========================redirections_utils.c===============================*/
 
@@ -86,7 +91,7 @@ int		check_all(t_table infile);
 
 /*===========================parsing/expand.c===============================*/
 
-int		expand_management(t_data *data, char **envp);
+int		expand_management(t_data *data, char **envp, int last_exit);
 
 /*===========================parsing/cleaner.c===============================*/
 
@@ -98,14 +103,16 @@ int		heredoc_management(t_data *data, int tab_size);
 
 /*===========================fds_management.c===============================*/
 
+int     ft_dup(int read_fd, int write_fd);
+int		close_fds(int *in_out_fd);
 int     **init_pipe(t_data *data, int size);
+int     manage_redirection(t_data *data, int tab_size, int i, int **fd);
+
 void	free_pipes(int **tab, int size);
 int     close_pipes(int **fds, int size, int i_start, int last_fd);
 int		ft_getenv(char *word, char **env, char **var_content);
 void	set_env(char *var, char *cwd, char **env);
 char	*var_exist(char *word, char **env);
-int     exec_redirection(t_data data, int *fds, int last_read);
-int     wait_all(t_data *data, int tab_size);
+int     wait_all(t_data *data, int tab_size, int pid);
 int     init_exec(t_data *data, int tab_size);
-int     ft_dup(int read_fd, int write_fd);
 #endif
