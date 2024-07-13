@@ -150,6 +150,7 @@ void update_or_add_to_env(char *key, char *value, t_data *data)
     {
         if (ft_strncmp(data->env.tab[i], key, ft_strlen(key)) == 0 && data->env.tab[i][ft_strlen(key)] == '=')
         {
+            //wset_env(key, value, data->env.tab);
             update_env(data, i, key, value);
             return;
         }
