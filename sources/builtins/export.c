@@ -12,7 +12,7 @@
 
 #include "exec.h"
 
-// General function to add a new variable to a table
+// add variable to a table
 char    **add_to_table(t_table *table, const char *new_var)
 {
     char    **new_tab;
@@ -41,14 +41,14 @@ char    **add_to_table(t_table *table, const char *new_var)
     return (new_tab);
 }
 
-// General function to update a variable in a table
+//update a variable in a table
 void update_table(char **table, int index, char *new_var)
 {
     free(table[index]);
     table[index] = ft_strdup(new_var);
 }
 
-// Initializes the exported environment table from the existing environment table
+// init the exported environment table from the existing environment table
 void init_exported_env(t_data *data, t_table *export)
 {
     int i;
@@ -97,7 +97,7 @@ void init_exported_env(t_data *data, t_table *export)
     export->size = data->env.size;
 }
 
-// Checks if a key is a valid identifier
+// checks if a key is a valid identifier
 int is_valid_identifier(char *key)
 {
     int i;
@@ -115,7 +115,7 @@ int is_valid_identifier(char *key)
     return (1);
 }
 
-// General function to update or add a variable in a table
+//o update or add a variable in a table
 void update_or_add_to_table(char *new_var, t_table *table)
 {
     int i;
@@ -142,7 +142,7 @@ void update_or_add_to_table(char *new_var, t_table *table)
     free(key);
 }
 
-// Processes an argument for the export command
+// Process argsfor the export command
 void process_export_arg(int i, t_data *data, t_table *export)
 {
     char *equals_pos;
@@ -213,7 +213,7 @@ int ft_export(t_data *data, t_table *export)
     return 0;
 }
 
-// Print the export table
+// print the export table
 int ft_export_print(t_table *export)
 {
     int i;
