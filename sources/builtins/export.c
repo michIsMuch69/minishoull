@@ -8,7 +8,6 @@ typedef struct s_vars
     char *equal_pos;
 } t_vars;
 
-// add variable to a table
 char **add_to_table(t_table *table, char *new_var)
 {
     char **new_tab;
@@ -37,55 +36,58 @@ char **add_to_table(t_table *table, char *new_var)
     return (new_tab);
 }
 
-// update a variable in a table
-void update_table(char **table, int index, char *new_var)
+void update_table(char **table, int i, char *new_var)
 {
-    free(table[index]);
-    table[index] = ft_strdup(new_var);
+    free(table[i]);
+    table[i] = ft_strdup(new_var);
 }
 
-// create a new_var with quotes
 char *create_quoted_var(char *key, char *value)
 {
-    int len = ft_strlen(key) + ft_strlen(value) + 4; // +4 for ="", and null terminator
-    char *new_var = ft_calloc(len, sizeof(char)); // Use ft_calloc instead of malloc
+    int len;
+    char    *new_var;
+
+    len = ft_strlen(key) + ft_strlen(value) + 4; // +4 pour =,"", and '\0
+    new_var = ft_calloc(len, sizeof(char)); 
     if (!new_var)
         return NULL;
     ft_strcpy(new_var, key);
     ft_strcat(new_var, "=\"");
-    ft_strcat(new_var, value); // Casting to char *
+    ft_strcat(new_var, value); 
     ft_strcat(new_var, "\"");
     return new_var;
 }
 
-// create a new_var without quotes
 char *create_unquoted_var(char *key, char *value)
 {
-    int len = ft_strlen(key) + ft_strlen(value) + 2; // +2 for = and null terminator
-    char *new_var = ft_calloc(len, sizeof(char)); // Use ft_calloc instead of malloc
+    int len = ft_strlen(key) + ft_strlen(value) + 2;
+    char *new_var = ft_calloc(len, sizeof(char));
     if (!new_var)
         return NULL;
     ft_strcpy(new_var, key);
     ft_strcat(new_var, "=");
-    ft_strcat(new_var, value); // Casting to char *
+    ft_strcat(new_var, value);
     return new_var;
 }
 
-// create a new_var without quotes and equals sign
 char *create_var_without_equals(char *key)
 {
-    int len = ft_strlen(key) + 1; // +1 for null terminator
-    char *new_var = ft_calloc(len, sizeof(char)); // Use ft_calloc instead of malloc
+    int len;
+    char *new_var;
+
+    len = ft_strlen(key) + 1;
+    new_var = ft_calloc(len, sizeof(char)); 
     if (!new_var)
         return NULL;
     ft_strcpy(new_var, key);
     return new_var;
 }
 
-// checks if a key is a valid identifier
 int is_valid_identifier(char *key)
 {
-    int i = 0;
+    int i;
+    
+    i = 0;
     if (!key || !key[0] || (key[0] >= '0' && key[0] <= '9'))
         return 0;
     while (key[i])
@@ -97,7 +99,6 @@ int is_valid_identifier(char *key)
     return 1;
 }
 
-// Helper function to process each variable in the environment table for export
 void process_env_var_for_export(t_vars *vars, char *env_var, char **export_tab, int index)
 {
     vars->equal_pos = ft_strchr(env_var, '=');
@@ -115,29 +116,25 @@ void process_env_var_for_export(t_vars *vars, char *env_var, char **export_tab, 
         export_tab[index] = vars->new_var;
 }
 
-// init the exported environment table from the existing environment table
 void init_exported_env(t_data *data, t_table *export)
 {
-    int i = 0;
+    int i;
     t_vars vars;
-
+    
+    i = 0;
     export->tab = malloc((data->env.size + 1) * sizeof(char *));
     if (!export->tab)
         return;
-
     while (i < data->env.size)
     {
         process_env_var_for_export(&vars, data->env.tab[i], export->tab, i);
         i++;
     }
     while (i <= data->env.size)
-    {
         export->tab[i++] = NULL;
-    }
     export->size = data->env.size;
 }
 
-// update or add a variable in a table (no quotes for env)
 void update_or_add_to_env(char *new_var, t_table *table)
 {
     int i;
@@ -148,7 +145,6 @@ void update_or_add_to_env(char *new_var, t_table *table)
     while (new_var[key_len] && new_var[key_len] != '=')
         key_len++;
     key = ft_substr(new_var, 0, key_len);
-
     i = 0;
     while (i < table->size)
     {
@@ -164,7 +160,6 @@ void update_or_add_to_env(char *new_var, t_table *table)
     free(key);
 }
 
-// update or add a variable in a table (with quotes for export)
 void update_or_add_to_export(char *new_var, t_table *table)
 {
     int i;
@@ -191,8 +186,7 @@ void update_or_add_to_export(char *new_var, t_table *table)
     free(key);
 }
 
-// Helper function to process key-value pair in export argument
-void process_kv_pair(t_vars *vars, t_data *data, t_table *export, int i)
+void process_full_entry(t_vars *vars, t_data *data, t_table *export, int i)
 {
     vars->key = ft_substr(data->args.tab[i], 0, vars->equal_pos - data->args.tab[i]);
     vars->value = ft_strdup(vars->equal_pos + 1);
@@ -209,11 +203,10 @@ void process_kv_pair(t_vars *vars, t_data *data, t_table *export, int i)
     vars->new_var = create_unquoted_var(vars->key, vars->value);
     update_or_add_to_env(vars->new_var, &data->env);
     free(vars->new_var);
-    free(vars->key); // Free key here
-    free(vars->value); // Free value here
+    free(vars->key); 
+    free(vars->value); 
 }
 
-// Helper function to process unquoted key in export argument
 void process_unquoted_key(t_vars *vars, t_data *data, t_table *export, int i)
 {
     vars->key = ft_strdup(data->args.tab[i]);
@@ -223,13 +216,12 @@ void process_unquoted_key(t_vars *vars, t_data *data, t_table *export, int i)
         free(vars->key);
         return;
     }
-    vars->new_var = create_var_without_equals(vars->key); // Add without equals and quotes
+    vars->new_var = create_var_without_equals(vars->key);
     update_or_add_to_export(vars->new_var, export);
     free(vars->new_var);
     free(vars->key);
 }
 
-// process args for the export command
 void process_export_arg(int i, t_data *data, t_table *export)
 {
     t_vars vars;
@@ -240,16 +232,11 @@ void process_export_arg(int i, t_data *data, t_table *export)
     vars.new_var = NULL;
 
     if (vars.equal_pos)
-    {
-        process_kv_pair(&vars, data, export, i);
-    }
+        process_full_entry(&vars, data, export, i);
     else
-    {
         process_unquoted_key(&vars, data, export, i);
-    }
 }
 
-// export command implementation
 int ft_export(t_data *data, t_table *export)
 {
     int i = 1;
@@ -261,7 +248,6 @@ int ft_export(t_data *data, t_table *export)
     return 0;
 }
 
-// print the export table
 int ft_export_print(t_table *export)
 {
     int i = 0;
