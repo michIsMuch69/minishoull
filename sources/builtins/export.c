@@ -54,8 +54,10 @@ char *create_quoted_var(char *key, char *value)
 
 char *create_unquoted_var(char *key, char *value)
 {
-    int len = ft_strlen(key) + ft_strlen(value) + 2;
-    char *new_var = ft_calloc(len, sizeof(char));
+    int len;
+    char *new_var;
+    len = ft_strlen(key) + ft_strlen(value) + 2;
+    new_var = ft_calloc(len, sizeof(char));
     if (!new_var)
         return NULL;
     ft_strcpy(new_var, key);

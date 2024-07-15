@@ -6,7 +6,7 @@
 /*   By: michismuch <michismuch@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 08:28:16 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/15 18:28:57 by michismuch       ###   ########.fr       */
+/*   Updated: 2024/07/15 18:33:00 by michismuch       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 int ft_echo(char **args)
 {
-    int flag = 0;
-    int i = 1;
+    int flag;
+    int i;
 
+    flag = 0;
+    i = 1;
     if (args[1] && ft_strcmp(args[1], "-n") == 0)
     {
         flag = 1;
@@ -26,11 +28,11 @@ int ft_echo(char **args)
     {
         printf("%s", args[i]);
         if (args[i + 1])
-            printf(" ");
+            ft_printf(" ");
         i++;
     }
     if (!flag)
-        printf("\n");
+       ft_printf("\n");
     return (0);
 }
 
@@ -41,13 +43,11 @@ int	ft_env(char **env)
 	i = 0;
     while (env[i])
 	{
-        printf("%s\n", env[i]);
+        ft_printf("%s\n", env[i]);
 		i++;
 	}
     return 0;
 }
-
-
 
 int	ft_pwd(void)
 {
@@ -58,11 +58,9 @@ int	ft_pwd(void)
 	temp = getcwd(cwd, sizeof(cwd));
 	if (temp != NULL)
 	{
-		printf("%s\n", cwd);
+		ft_printf("%s\n", cwd);
 		return (0);
 	}
 	else
-	{
 		return (1);
-	}
 }
