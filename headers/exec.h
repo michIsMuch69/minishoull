@@ -30,9 +30,6 @@
 #include <errno.h>
 #include <signal.h>
 
-extern char **g_exported_env;
-extern int g_exported_env_size;
-
 void	print_tab(t_table tab);
 void	print_struct(t_data *data, int tab_size);
 

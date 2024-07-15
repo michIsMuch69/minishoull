@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
+/*   By: michismuch <michismuch@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:58:11 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/11 18:43:24 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/07/15 12:29:57 by michismuch       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@
 #include "exec.h"
 
 // ###### INCLUDES ######
-char **g_exported_env = NULL;
-int g_exported_env_size = 0;
+
 
 
 // ###### PROTO ######
