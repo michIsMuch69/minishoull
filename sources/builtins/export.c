@@ -9,7 +9,7 @@ typedef struct s_vars
 } t_vars;
 
 // add variable to a table
-char **add_to_table(t_table *table, const char *new_var)
+char **add_to_table(t_table *table, char *new_var)
 {
     char **new_tab;
     int i;
@@ -45,7 +45,7 @@ void update_table(char **table, int index, char *new_var)
 }
 
 // create a new_var with quotes
-char *create_quoted_var(const char *key, const char *value)
+char *create_quoted_var(char *key, char *value)
 {
     int len = ft_strlen(key) + ft_strlen(value) + 4; // +4 for ="", and null terminator
     char *new_var = ft_calloc(len, sizeof(char)); // Use ft_calloc instead of malloc
@@ -53,13 +53,13 @@ char *create_quoted_var(const char *key, const char *value)
         return NULL;
     ft_strcpy(new_var, key);
     ft_strcat(new_var, "=\"");
-    ft_strcat(new_var, (char *)value); // Casting to char *
+    ft_strcat(new_var, value); // Casting to char *
     ft_strcat(new_var, "\"");
     return new_var;
 }
 
 // create a new_var without quotes
-char *create_unquoted_var(const char *key, const char *value)
+char *create_unquoted_var(char *key, char *value)
 {
     int len = ft_strlen(key) + ft_strlen(value) + 2; // +2 for = and null terminator
     char *new_var = ft_calloc(len, sizeof(char)); // Use ft_calloc instead of malloc
@@ -67,12 +67,23 @@ char *create_unquoted_var(const char *key, const char *value)
         return NULL;
     ft_strcpy(new_var, key);
     ft_strcat(new_var, "=");
-    ft_strcat(new_var, (char *)value); // Casting to char *
+    ft_strcat(new_var, value); // Casting to char *
+    return new_var;
+}
+
+// create a new_var without quotes and equals sign
+char *create_var_without_equals(char *key)
+{
+    int len = ft_strlen(key) + 1; // +1 for null terminator
+    char *new_var = ft_calloc(len, sizeof(char)); // Use ft_calloc instead of malloc
+    if (!new_var)
+        return NULL;
+    ft_strcpy(new_var, key);
     return new_var;
 }
 
 // checks if a key is a valid identifier
-int is_valid_identifier(const char *key)
+int is_valid_identifier(char *key)
 {
     int i = 0;
     if (!key || !key[0] || (key[0] >= '0' && key[0] <= '9'))
@@ -87,7 +98,7 @@ int is_valid_identifier(const char *key)
 }
 
 // Helper function to process each variable in the environment table for export
-void process_env_var_for_export(t_vars *vars, const char *env_var, char **export_tab, int index)
+void process_env_var_for_export(t_vars *vars, char *env_var, char **export_tab, int index)
 {
     vars->equal_pos = ft_strchr(env_var, '=');
     if (vars->equal_pos)
@@ -99,13 +110,9 @@ void process_env_var_for_export(t_vars *vars, const char *env_var, char **export
         free(vars->value);
     }
     else
-    {
         vars->new_var = ft_strdup(env_var);
-    }
     if (vars->new_var)
-    {
         export_tab[index] = vars->new_var;
-    }
 }
 
 // init the exported environment table from the existing environment table
@@ -216,9 +223,7 @@ void process_unquoted_key(t_vars *vars, t_data *data, t_table *export, int i)
         free(vars->key);
         return;
     }
-    vars->new_var = ft_calloc(ft_strlen(vars->key) + 4, sizeof(char)); // +4 to account for ="" and null terminator
-    ft_strcpy(vars->new_var, vars->key);
-    ft_strcat(vars->new_var, "=\"\"");
+    vars->new_var = create_var_without_equals(vars->key); // Add without equals and quotes
     update_or_add_to_export(vars->new_var, export);
     free(vars->new_var);
     free(vars->key);
