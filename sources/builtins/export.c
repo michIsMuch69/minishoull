@@ -1,12 +1,6 @@
 #include "exec.h"
 
-typedef struct s_vars
-{
-    char *key;
-    char *value;
-    char *new_var;
-    char *equal_pos;
-} t_vars;
+
 
 char **add_to_table(t_table *table, char *new_var)
 {

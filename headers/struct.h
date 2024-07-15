@@ -6,7 +6,7 @@
 /*   By: michismuch <michismuch@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 09:16:08 by fberthou          #+#    #+#             */
-/*   Updated: 2024/07/15 16:05:51 by michismuch       ###   ########.fr       */
+/*   Updated: 2024/07/15 16:22:26 by michismuch       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,11 @@ typedef struct s_data
     char            *prompt;
 } t_data;
 
-
+typedef struct s_vars
+{
+    char *key;
+    char *value;
+    char *new_var;
+    char *equal_pos;
+} t_vars;
 #endif

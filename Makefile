@@ -6,7 +6,7 @@
 #    By: michismuch <michismuch@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 11:07:17 by fberthou          #+#    #+#              #
-#    Updated: 2024/07/15 16:06:01 by michismuch       ###   ########.fr        #
+#    Updated: 2024/07/15 16:21:31 by michismuch       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,7 @@ SRC		=	$(MAIN_PATH)/main.c $(MAIN_PATH)/utils.c $(MAIN_PATH)/sig_manager.c\
 			$(EXEC_PATH)/heredoc.c	$(EXEC_PATH)/pipe.c	 \
 			\
 			$(BUILTINS_PATH)/builtins_parent.c	$(BUILTINS_PATH)/builtins_child.c	$(BUILTINS_PATH)/builtins_utils.c \
-			$(BUILTINS_PATH)/builtins_exec.c $(BUILTINS_PATH)/export.c
+			$(BUILTINS_PATH)/builtins_exec.c $(BUILTINS_PATH)/export.c $(BUILTINS_PATH)/env.c
 
 ### ---- TEMPORARY FILES ---- ###
 OBJ	= $(SRC:$(SRC_PATH)/%.c=$(BUILD_PATH)/%.o)

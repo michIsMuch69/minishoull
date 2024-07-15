@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_exec.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: michismuch <michismuch@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:39:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/12 11:57:34 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:23:27 by michismuch       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	exec_builtin_child(t_data *data, int tab_size, int i, int **fd)
 	}
 	else if (ft_strcmp(data->args.tab[0], "env") == 0)
 	{
-	    status = ft_env(data->env.tab);
+		printf("My env\n");
+	    status = ft_env(data);
 	}
 	close_pipes(fd, tab_size - 1, i, 0);
 	while (i < tab_size)
