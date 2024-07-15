@@ -51,20 +51,22 @@ void	free_array(char **array);
 
 /*===========================builtins.c===============================*/
 
+
+
 void	ft_exit(t_data *data, int tab_size, int last_status);
 int		ft_cd(char **args, char **env);
 int		ft_pwd(void);
 int		ft_echo(char **args);
 int		ft_env(char **env);
-int		ft_export_print(t_table *export);
 
 int		ft_unset(char *var, t_table *env);
-//int		ft_export(t_table args , t_table env);
-void	init_exported_env(t_data *data, t_table *export);
-int		ft_export(t_data *data, t_table *export);
 void	set_env(char *key, char *value, char **env);
 
+/*===========================export.c===============================*/
 
+int		ft_export_print(t_table *export);
+void	init_exported_env(t_data *data, t_table *export);
+int		ft_export(t_data *data, t_table *export);
 
 
 /*===========================builtins_utils.c===============================*/

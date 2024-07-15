@@ -1,0 +1,23 @@
+File 1: env_utils.c
+
+    char **add_to_table(t_table *table, char *new_var);
+    void update_table(char **table, int i, char *new_var);
+    char *create_quoted_var(char *key, char *value);
+    char *create_unquoted_var(char *key, char *value);
+    char *create_var_without_equals(char *key);
+
+File 2: env_update.c
+
+    int is_valid_identifier(char *key);
+    void update_or_add_to_env(char *new_var, t_table *table);
+    void update_or_add_to_export(char *new_var, t_table *table);
+    void process_full_entry(t_vars *vars, t_data *data, t_table *export, int i);
+    void process_unquoted_key(t_vars *vars, t_data *data, t_table *export, int i);
+
+File 3: env_process.c
+
+    void process_env_var_for_export(t_vars *vars, char *env_var, char **export_tab, int index);
+    void init_exported_env(t_data *data, t_table *export);
+    void process_export_arg(int i, t_data *data, t_table *export);
+    int ft_export(t_data *data, t_table *export);
+    int ft_export_print(t_table *export)
