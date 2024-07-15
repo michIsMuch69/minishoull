@@ -6,7 +6,7 @@
 /*   By: michismuch <michismuch@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 08:28:16 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/15 16:19:13 by michismuch       ###   ########.fr       */
+/*   Updated: 2024/07/15 17:55:06 by michismuch       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,18 @@ int ft_echo(char **args)
     return (0);
 }
 
-// int	ft_env(char **env)
-// {
-// 	int	i;
-// 	//env also sets envronment variables. 
-// 	i = 0;
-//     while (env[i])
-// 	{
-//         printf("%s\n", env[i]);
-// 		i++;
-// 	}
-//     return 0;
-// }
+int	ft_env(char **env)
+{
+	int	i;
+
+	i = 0;
+    while (env[i])
+	{
+        printf("%s\n", env[i]);
+		i++;
+	}
+    return 0;
+}
 
 
 
