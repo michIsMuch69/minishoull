@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_parent.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: michismuch <michismuch@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 08:27:25 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/12 12:04:47 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/15 18:30:40 by michismuch       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@
 
 int ft_cd(char **args, char **env)
 {
-   	char	cwd[1024];
-    char	*home = NULL;
-    char	*oldpwd = NULL;
-    char	*new_dir = NULL;
-	char	*temp;
+    char cwd[1024];
+    char *home = NULL;
+    char *oldpwd = NULL;
+    char *new_dir = NULL;
+    char *temp;
 
-	temp = getcwd(cwd, sizeof(cwd));
+    temp = getcwd(cwd, sizeof(cwd));
     if (!args[1] || ft_strcmp(args[1], "~") == 0)
     {
         if (ft_getenv("HOME", env, &home) != 0)
@@ -38,21 +38,21 @@ int ft_cd(char **args, char **env)
         if (ft_getenv("OLDPWD", env, &oldpwd) != 0)
             return (ft_putstr_fd("cd: OLDPWD not set\n", 2), -1);
         new_dir = oldpwd;
+        ft_printf("%s\n", new_dir);  // Print the new directory after switching
     }
-    //  ft_strncmp;
-	else if (ft_strcmp(args[1], "..") == 0)
-		new_dir = "..";
+    else if (ft_strcmp(args[1], "..") == 0)
+        new_dir = "..";
     else
         new_dir = args[1];
     if (chdir(new_dir) != 0)
         return (perror("cd"), free(home), free(oldpwd), -1);
-	set_env("OLDPWD", temp, env);
-	temp = getcwd(cwd, sizeof(cwd) * sizeof(char));
+    set_env("OLDPWD", temp, env);
+    temp = getcwd(cwd, sizeof(cwd) * sizeof(char));
     if (temp != NULL)
-	    set_env("PWD", temp, env);
+        set_env("PWD", temp, env);
     else
         perror("getcwd");
-	free(home);
+    free(home);
     free(oldpwd);
     return (0);
 }

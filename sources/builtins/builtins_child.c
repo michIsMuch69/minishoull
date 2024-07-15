@@ -6,7 +6,7 @@
 /*   By: michismuch <michismuch@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 08:28:16 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/15 17:55:06 by michismuch       ###   ########.fr       */
+/*   Updated: 2024/07/15 18:28:57 by michismuch       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int ft_echo(char **args)
     while (args[i])
     {
         printf("%s", args[i]);
+        if (args[i + 1])
+            printf(" ");
         i++;
     }
     if (!flag)

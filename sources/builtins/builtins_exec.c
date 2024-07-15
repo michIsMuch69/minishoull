@@ -6,7 +6,7 @@
 /*   By: michismuch <michismuch@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:39:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/15 17:56:03 by michismuch       ###   ########.fr       */
+/*   Updated: 2024/07/15 18:30:40 by michismuch       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	exec_builtin_child(t_data *data, int tab_size, int i, int **fd)
 	}
 	else if (ft_strcmp(data->args.tab[0], "env") == 0)
 	{
-		printf("My env\n");
+		ft_printf("My env\n");
 	    status = ft_env(data->env.tab);
 	}
 	close_pipes(fd, tab_size - 1, i, 0);
