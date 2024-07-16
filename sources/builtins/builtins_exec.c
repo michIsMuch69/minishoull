@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_exec.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: michismuch <michismuch@student.42.fr>      +#+  +:+       +#+        */
+/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:39:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/15 18:30:40 by michismuch       ###   ########.fr       */
+/*   Updated: 2024/07/16 09:31:46 by jean-michel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ int	exec_builtin_child(t_data *data, int tab_size, int i, int **fd)
 	}
 	else if (ft_strcmp(data->args.tab[0], "echo") == 0)
 	{
-	    status = ft_echo(data->args.tab);
+		status = ft_echo(data->args.tab);
 	}
 	else if (ft_strcmp(data->args.tab[0], "env") == 0)
 	{
 		ft_printf("My env\n");
-	    status = ft_env(data->env.tab);
+		status = ft_env(data->env.tab);
 	}
 	close_pipes(fd, tab_size - 1, i, 0);
 	while (i < tab_size)
@@ -59,6 +59,7 @@ int exec_builtin_parent(t_data *data, int tab_size, int i, int **fd)
     {
 		static t_table	export;
 		
+		printf("My export\n");
 		if (!export.tab)
 			init_exported_env(data, &export);
         if (data[i].args.tab[1] == NULL)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: michismuch <michismuch@student.42.fr>      +#+  +:+       +#+         #
+#    By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 11:07:17 by fberthou          #+#    #+#              #
-#    Updated: 2024/07/15 17:56:03 by michismuch       ###   ########.fr        #
+#    Updated: 2024/07/16 09:27:32 by jean-michel      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ PARSING_PATH			= $(SRC_PATH)/parsing
 EXEC_PATH				= $(SRC_PATH)/exec
 SIG_PATH				= $(SRC_PATH)/signals
 BUILTINS_PATH			= $(SRC_PATH)/builtins
+EXPORT_PATH				= $(BUILTINS_PATH)/export
 #LIBFT#
 LIBFT_PATH				= libft
 LIBFT_HDR_PATH			= $(LIBFT_PATH)/hdr
@@ -39,6 +40,7 @@ BUILD_PARS_PATH			= $(BUILD_PATH)/parsing
 BUILD_EXEC_PATH			= $(BUILD_PATH)/exec
 BUILD_SIG_PATH			= $(BUILD_PATH)/signals
 BUILD_BUILTINS_PATH		= $(BUILD_PATH)/builtins
+BUILD_EXPORT_PATH		= $(BUILD_BUILTINS_PATH)/export
 
 # --- COMPILATION FLAGS --- #
 LIB_FLAGS	=	-I$(LIBFT_HDR_PATH)
@@ -59,7 +61,9 @@ SRC		=	$(MAIN_PATH)/main.c $(MAIN_PATH)/utils.c $(MAIN_PATH)/sig_manager.c\
 			$(EXEC_PATH)/heredoc.c	$(EXEC_PATH)/pipe.c	 \
 			\
 			$(BUILTINS_PATH)/builtins_parent.c $(BUILTINS_PATH)/builtins_child.c $(BUILTINS_PATH)/builtins_utils.c \
-			$(BUILTINS_PATH)/builtins_exec.c $(BUILTINS_PATH)/export.c 
+			$(BUILTINS_PATH)/builtins_exec.c \
+			\
+			$(EXPORT_PATH)/export_utils.c $(EXPORT_PATH)/export_update.c $(EXPORT_PATH)/export_process.c
 
 ### ---- TEMPORARY FILES ---- ###
 OBJ	= $(SRC:$(SRC_PATH)/%.c=$(BUILD_PATH)/%.o)
@@ -79,8 +83,7 @@ $(LIBFT)	: FORCE
 
 #########     OBJECTS    #########
 $(BUILD_PATH)/%.o : $(SRC_PATH)/%.c
-	@mkdir -p $(BUILD_PATH) $(BUILD_MAIN_PATH) $(BUILD_PARS_PATH) \
-	$(BUILD_EXEC_PATH) $(BUILD_BUILTINS_PATH)
+	@mkdir -p $(dir $@)
 	$(CC) $(COMPFLAGS) -c $< -o $@
 
 FORCE	:
