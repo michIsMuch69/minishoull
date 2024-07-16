@@ -6,7 +6,7 @@
 /*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 15:34:59 by florian           #+#    #+#             */
-/*   Updated: 2024/07/16 09:04:06 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/07/16 09:48:19 by jean-michel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void    sig_manager(int signum)
     if (write(1, "\n", 1) == -1)
         exit(EXIT_FAILURE);
     rl_on_new_line();
-   // rl_replace_line("", 0);
+    rl_replace_line("", 0);
     rl_redisplay();
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_child.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: michismuch <michismuch@student.42.fr>      +#+  +:+       +#+        */
+/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 08:28:16 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/15 18:33:00 by michismuch       ###   ########.fr       */
+/*   Updated: 2024/07/16 09:42:28 by jean-michel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int ft_echo(char **args)
         i++;
     }
     if (!flag)
-       ft_printf("\n");
+        ft_printf("\n");
     return (0);
 }
 
