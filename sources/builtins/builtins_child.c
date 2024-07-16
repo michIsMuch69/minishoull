@@ -6,7 +6,7 @@
 /*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 08:28:16 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/16 10:26:34 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/07/16 12:43:20 by jean-michel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int ft_pwd(void)
 	char    cwd[1024];
 	char    *temp;
 
-	ft_printf("My pwd\n"); //last exit code
 	temp = getcwd(cwd, sizeof(cwd));
 	if (temp != NULL)
 	{

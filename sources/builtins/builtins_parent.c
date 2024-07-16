@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_parent.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: michismuch <michismuch@student.42.fr>      +#+  +:+       +#+        */
+/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 08:27:25 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/15 18:30:40 by michismuch       ###   ########.fr       */
+/*   Updated: 2024/07/16 12:43:37 by jean-michel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-
-//setenv pour cd 
-// int maj_env()
-// {
-	
-// }
 
 int ft_cd(char **args, char **env)
 {

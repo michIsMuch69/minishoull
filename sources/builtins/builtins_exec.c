@@ -6,7 +6,7 @@
 /*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:39:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/16 09:41:34 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/07/16 12:43:16 by jean-michel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int exec_builtin_parent(t_data *data, int tab_size, int i, int **fd)
     {
 		static t_table	export;
 		
-		printf("My export\n");
 		if (!export.tab)
 			init_exported_env(data, &export);
         if (data[i].args.tab[1] == NULL)
