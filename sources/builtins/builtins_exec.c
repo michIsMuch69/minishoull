@@ -6,13 +6,11 @@
 /*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:39:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/16 09:31:46 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/07/16 09:41:34 by jean-michel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-
-
 
 int parent_routine(t_data *data, int i, int tab_size, int **fd);
 
