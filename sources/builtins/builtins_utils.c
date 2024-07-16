@@ -6,7 +6,7 @@
 /*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 10:46:50 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/16 10:10:25 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/07/16 10:16:48 by jean-michel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ void	set_env(char *key, char *value, char **env)
 
 void	sort_tab(t_table *table)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
 	char	*temp;
 	
 	i = 0;

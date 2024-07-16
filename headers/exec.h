@@ -72,7 +72,7 @@ char    *create_quoted_var(char *key, char *value);
 char    *create_unquoted_var(char *key, char *value);
 char    *create_var_without_equals(char *key);
 int     process_full_entry(t_vars *vars, t_data *data, t_table *export, int i);
-int    process_unquoted_key(t_vars *vars, t_data *data, t_table *export, int i);
+int     process_uncomplete_entry(t_vars *vars, t_data *data, t_table *export, int i);
 
 
 /*===========================builtins_utils.c===============================*/

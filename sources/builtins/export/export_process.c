@@ -6,7 +6,7 @@
 /*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 09:26:24 by jean-michel       #+#    #+#             */
-/*   Updated: 2024/07/16 10:11:25 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/07/16 10:19:24 by jean-michel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void process_export_arg(int i, t_data *data, t_table *export)
     if (vars.equal_pos)
         process_full_entry(&vars, data, export, i);
     else
-        process_unquoted_key(&vars, data, export, i);
+        process_uncomplete_entry(&vars, data, export, i);
 }
 
 int ft_export(t_data *data, t_table *export)
@@ -85,7 +85,7 @@ int ft_export_print(t_table *export)
     sort_tab(export);
     while (export->tab[i])
     {
-        printf("declare -x %s\n", export->tab[i]);
+        ft_printf("declare -x %s\n", export->tab[i]);
         i++;
     }
     return (0);

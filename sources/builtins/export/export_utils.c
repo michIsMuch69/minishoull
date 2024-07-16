@@ -6,7 +6,7 @@
 /*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 09:23:55 by jean-michel       #+#    #+#             */
-/*   Updated: 2024/07/16 09:25:02 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/07/16 10:22:36 by jean-michel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ char **add_to_table(t_table *table, char *new_var)
     new_tab = malloc((table->size + 2) * sizeof(char *));
     if (!new_tab)
         return (table->tab);
-
     while (i < table->size)
     {
         new_tab[i] = table->tab[i];
@@ -29,10 +28,7 @@ char **add_to_table(t_table *table, char *new_var)
     }
     new_tab[i] = ft_strdup(new_var);
     if (!new_tab[i])
-    {
-        free(new_tab);
-        return (table->tab);
-    }
+        return (free(new_tab), table->tab);
     new_tab[i + 1] = NULL;
     if (table->tab)
         free(table->tab);
@@ -46,7 +42,7 @@ void update_table(char **table, int i, char *new_var)
 }
 char *create_quoted_var(char *key, char *value)
 {
-    int len;
+    int     len;
     char    *new_var;
 
     len = ft_strlen(key) + ft_strlen(value) + 4; // +4 pour =,"", and '\0
@@ -57,13 +53,14 @@ char *create_quoted_var(char *key, char *value)
     ft_strcat(new_var, "=\"");
     ft_strcat(new_var, value); 
     ft_strcat(new_var, "\"");
-    return new_var;
+    return (new_var);
 }
 
 char *create_unquoted_var(char *key, char *value)
 {
-    int len;
-    char *new_var;
+    int     len;
+    char    *new_var;
+    
     len = ft_strlen(key) + ft_strlen(value) + 2;
     new_var = ft_calloc(len, sizeof(char));
     if (!new_var)
@@ -71,18 +68,18 @@ char *create_unquoted_var(char *key, char *value)
     ft_strcpy(new_var, key);
     ft_strcat(new_var, "=");
     ft_strcat(new_var, value);
-    return new_var;
+    return (new_var);
 }
 
 char *create_var_without_equals(char *key)
 {
-    int len;
-    char *new_var;
+    int     len;
+    char    *new_var;
 
     len = ft_strlen(key) + 1;
     new_var = ft_calloc(len, sizeof(char)); 
     if (!new_var)
-        return NULL;
+        return (NULL);
     ft_strcpy(new_var, key);
-    return new_var;
+    return (new_var);
 }

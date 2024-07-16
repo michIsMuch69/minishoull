@@ -6,7 +6,7 @@
 /*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 09:25:24 by jean-michel       #+#    #+#             */
-/*   Updated: 2024/07/16 09:38:24 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/07/16 10:23:03 by jean-michel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int is_valid_identifier(char *key)
 
 int update_or_add_to_env(char *new_var, t_table *table)
 {
-    int i;
-    char *key;
-    int key_len;
+    int     i;
+    char    *key;
+    int     key_len;
 
     key_len = 0;
     while (new_var[key_len] && new_var[key_len] != '=')
@@ -56,9 +56,9 @@ int update_or_add_to_env(char *new_var, t_table *table)
 
 int update_or_add_to_export(char *new_var, t_table *table)
 {
-    int i;
-    char *key;
-    int key_len;
+    int     i;
+    char    *key;
+    int     key_len;
 
     key_len = 0;
     while (new_var[key_len] && new_var[key_len] != '=')
@@ -87,7 +87,7 @@ int process_full_entry(t_vars *vars, t_data *data, t_table *export, int i)
     vars->value = ft_strdup(vars->equal_pos + 1);
     if (!is_valid_identifier(vars->key))
     {
-        printf("export: '%s': not a valid identifier\n", data->args.tab[i]);
+        ft_printf("export: '%s': not a valid identifier\n", data->args.tab[i]);
         free(vars->key);
         free(vars->value);
         return (-1);
@@ -103,12 +103,12 @@ int process_full_entry(t_vars *vars, t_data *data, t_table *export, int i)
     return (0);
 }
 
-int process_unquoted_key(t_vars *vars, t_data *data, t_table *export, int i)
+int process_uncomplete_entry(t_vars *vars, t_data *data, t_table *export, int i)
 {
     vars->key = ft_strdup(data->args.tab[i]);
     if (!is_valid_identifier(vars->key))
     {
-        printf("export: '%s': not a valid identifier\n", data->args.tab[i]);
+        ft_printf("export: '%s': not a valid identifier\n", data->args.tab[i]);
         free(vars->key);
         return (-1);
     }
