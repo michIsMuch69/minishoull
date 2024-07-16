@@ -6,7 +6,7 @@
 /*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 09:26:24 by jean-michel       #+#    #+#             */
-/*   Updated: 2024/07/16 09:26:54 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/07/16 09:39:02 by jean-michel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void process_env_var_for_export(t_vars *vars, char *env_var, char **export_tab, 
         export_tab[index] = vars->new_var;
 }
 
-void init_exported_env(t_data *data, t_table *export)
+int init_exported_env(t_data *data, t_table *export)
 {
     int i;
     t_vars vars;
@@ -37,7 +37,7 @@ void init_exported_env(t_data *data, t_table *export)
     i = 0;
     export->tab = malloc((data->env.size + 1) * sizeof(char *));
     if (!export->tab)
-        return;
+        return (-1);
     while (i < data->env.size)
     {
         process_env_var_for_export(&vars, data->env.tab[i], export->tab, i);
@@ -46,9 +46,8 @@ void init_exported_env(t_data *data, t_table *export)
     while (i <= data->env.size)
         export->tab[i++] = NULL;
     export->size = data->env.size;
+    return (0);
 }
-
-
 
 void process_export_arg(int i, t_data *data, t_table *export)
 {
@@ -67,22 +66,26 @@ void process_export_arg(int i, t_data *data, t_table *export)
 
 int ft_export(t_data *data, t_table *export)
 {
-    int i = 1;
+    int i;
+    
+    i = 1;
     while (data->args.tab[i])
     {
         process_export_arg(i, data, export);
         i++;
     }
-    return 0;
+    return (0);
 }
 
 int ft_export_print(t_table *export)
 {
-    int i = 0;
+    int i;
+    
+    i = 0;
     while (export->tab[i])
     {
         printf("declare -x %s\n", export->tab[i]);
         i++;
     }
-    return 0;
+    return (0);
 }

@@ -64,15 +64,15 @@ void	set_env(char *key, char *value, char **env);
 /*===========================export.c===============================*/
 
 int		ft_export_print(t_table *export);
-void	init_exported_env(t_data *data, t_table *export);
+int     init_exported_env(t_data *data, t_table *export);
 int		ft_export(t_data *data, t_table *export);
-void update_table(char **table, int i, char *new_var);
-char **add_to_table(t_table *table, char *new_var);
-char *create_quoted_var(char *key, char *value);
-char *create_unquoted_var(char *key, char *value);
-char *create_var_without_equals(char *key);
-void process_full_entry(t_vars *vars, t_data *data, t_table *export, int i);
-void process_unquoted_key(t_vars *vars, t_data *data, t_table *export, int i);
+void    update_table(char **table, int i, char *new_var);
+char    **add_to_table(t_table *table, char *new_var);
+char    *create_quoted_var(char *key, char *value);
+char    *create_unquoted_var(char *key, char *value);
+char    *create_var_without_equals(char *key);
+int     process_full_entry(t_vars *vars, t_data *data, t_table *export, int i);
+int    process_unquoted_key(t_vars *vars, t_data *data, t_table *export, int i);
 
 
 /*===========================builtins_utils.c===============================*/
