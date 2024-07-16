@@ -6,7 +6,7 @@
 /*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 09:23:55 by jean-michel       #+#    #+#             */
-/*   Updated: 2024/07/16 10:22:36 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/07/16 10:26:26 by jean-michel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char **add_to_table(t_table *table, char *new_var)
 {
-    char **new_tab;
-    int i;
+    char    **new_tab;
+    int     i;
 
     i = 0;
     new_tab = malloc((table->size + 2) * sizeof(char *));

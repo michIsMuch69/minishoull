@@ -3,19 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 14:38:05 by fberthou          #+#    #+#             */
-/*   Updated: 2024/06/17 10:58:01 by fberthou         ###   ########.fr       */
+/*   Updated: 2024/07/16 11:02:48 by jean-michel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENIZER_H
 # define TOKENIZER_H
 
-# include <libft.h>
-# include <struct.h>
-# include <stdlib.h>
+#include "includes.h"
 
 // main/utils.c
 int		ft_perror(char *err_message);

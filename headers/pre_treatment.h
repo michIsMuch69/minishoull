@@ -3,19 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   pre_treatment.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fberthou <fberthou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 14:32:27 by fberthou          #+#    #+#             */
-/*   Updated: 2024/07/09 10:33:42 by fberthou         ###   ########.fr       */
+/*   Updated: 2024/07/16 11:02:38 by jean-michel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PRE_TREATMENT_H
 # define PRE_TREATMENT_H
 
-#include <stdlib.h>
-#include <libft.h>
-
+#include "includes.h"
 // main/utils.c
 int		ft_perror(char *err_message);
 

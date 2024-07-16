@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   includes.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 08:09:19 by fberthou          #+#    #+#             */
-/*   Updated: 2024/07/16 11:02:33 by jean-michel      ###   ########.fr       */
+/*   Created: 2024/07/16 11:01:37 by jean-michel       #+#    #+#             */
+/*   Updated: 2024/07/16 11:01:59 by jean-michel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#ifndef INCLUDES_H
+# define INCLUDES_H
 
-#include "includes.h"
-
-// main/utils.c
-void	free_tab(t_table *tab, int start);
-
-// parsing/pre_treatment.c
-char	*pre_treatment(char *prompt, int i);
-
-// parsing/tokenizer.c
-t_table	tokenizer(char *prompt);
-
-// parsing/struct_filling.c
-int		init_struct(t_data **data, t_table *tokens, int start, int data_size);
+# include "libft.h"
+# include "struct.h"
+# include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <string.h>
+# include <stddef.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <dirent.h>
+# include <fcntl.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <stdbool.h>
+# include <errno.h>
+# include <signal.h>
 
 #endif
