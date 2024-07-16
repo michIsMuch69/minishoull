@@ -6,7 +6,7 @@
 /*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 09:26:24 by jean-michel       #+#    #+#             */
-/*   Updated: 2024/07/16 09:39:02 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/07/16 10:11:25 by jean-michel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int ft_export_print(t_table *export)
     int i;
     
     i = 0;
+    sort_tab(export);
     while (export->tab[i])
     {
         printf("declare -x %s\n", export->tab[i]);

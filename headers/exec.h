@@ -83,6 +83,8 @@ int		is_builtin_child(t_data *data);
 int exec_builtin_parent(t_data *data,int tab_size, int i, int **fd);
 int		exec_builtin_child(t_data *data, int tab_size, int i, int **fd);
 int		is_numeric_str(char *str);
+void	sort_tab(t_table *table);
+
 
 
 /*===========================redirections.c===============================*/

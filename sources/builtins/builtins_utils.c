@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 10:46:50 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/10 13:46:56 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/16 10:10:25 by jean-michel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,28 @@ void	set_env(char *key, char *value, char **env)
 	free(new_value);
     // printf("size of  var added : %ld\n", ft_strlen(env[i]));
     // printf("env var added : %s\n", env[i]);
+}
+
+void	sort_tab(t_table *table)
+{
+	int i;
+	int j;
+	char	*temp;
+	
+	i = 0;
+	while (i < table->size)
+	{
+		j = 0;
+		while (j < table->size - 1 - i)
+		{
+			if (ft_strcmp(table->tab[j], table->tab[j + 1]) > 0)
+			{
+				temp = table->tab[j];
+				table->tab[j] = table->tab[j + 1];
+				table->tab[j + 1] = temp;
+			}
+			j++;
+		}
+		i++;
+	}
 }
