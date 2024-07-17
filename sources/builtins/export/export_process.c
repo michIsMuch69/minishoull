@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 09:26:24 by jean-michel       #+#    #+#             */
-/*   Updated: 2024/07/17 16:59:34 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/17 17:07:42 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int process_env_var_for_export(t_vars *vars, char *env_var, char **export_tab, i
     {
         vars->key = ft_substr(env_var, 0, vars->equal_pos - env_var);
         if (!vars->key)
-            return 1; // Memory allocation failure
+            return 1;
         vars->value = ft_strdup(vars->equal_pos + 1);
         if (!vars->value)
-            return (free(vars->key), 1); // Memory allocation failure
+            return (free(vars->key), 1);
         vars->new_var = create_quoted_var(vars->key, vars->value);
         if (!vars->new_var)
-            return (free_vars(vars), 1); // Memory allocation failure
+            return (free_vars(vars), 1);
         free(vars->key);
         free(vars->value);
         vars->key = NULL;
@@ -36,7 +36,7 @@ int process_env_var_for_export(t_vars *vars, char *env_var, char **export_tab, i
     {
         vars->new_var = ft_strdup(env_var);
         if (!vars->new_var)
-            return (1); // Memory allocation failure
+            return (1); 
     }
     export_tab[index] = vars->new_var;
     return (0);
@@ -49,7 +49,7 @@ int init_exported_env(t_data *data, t_table *export)
 
     export->tab = malloc((data->env.size + 1) * sizeof(char *));
     if (!export->tab)
-        return (1); // Memory allocation failure
+        return (1); 
     i = 0;
     while (i < data->env.size)
     {
