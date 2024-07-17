@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_process.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
+/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 09:26:24 by jean-michel       #+#    #+#             */
-/*   Updated: 2024/07/16 10:19:24 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/07/17 13:08:32 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int init_exported_env(t_data *data, t_table *export)
     return (0);
 }
 
-void process_export_arg(int i, t_data *data, t_table *export)
+int process_export_arg(int i, t_data *data, t_table *export)
 {
     t_vars vars;
 
@@ -59,9 +59,16 @@ void process_export_arg(int i, t_data *data, t_table *export)
     vars.new_var = NULL;
 
     if (vars.equal_pos)
-        process_full_entry(&vars, data, export, i);
+	{
+        if(process_full_entry(&vars, data, export, i) != 0)
+			return (1);
+	}
     else
-        process_uncomplete_entry(&vars, data, export, i);
+	{
+    	if (process_uncomplete_entry(&vars, data, export, i) != 0)
+			return (1);
+	}
+	return (0);
 }
 
 int ft_export(t_data *data, t_table *export)
@@ -71,7 +78,8 @@ int ft_export(t_data *data, t_table *export)
     i = 1;
     while (data->args.tab[i])
     {
-        process_export_arg(i, data, export);
+        if(process_export_arg(i, data, export) != 0)
+			return (1);
         i++;
     }
     return (0);

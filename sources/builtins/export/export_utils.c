@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
+/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 09:23:55 by jean-michel       #+#    #+#             */
-/*   Updated: 2024/07/16 10:26:26 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/07/17 12:25:10 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,16 @@ char *create_var_without_equals(char *key)
         return (NULL);
     ft_strcpy(new_var, key);
     return (new_var);
+}
+
+void free_vars(t_vars *vars)
+{
+	if (vars->equal_pos)
+		free(vars->equal_pos);
+	if(vars->key)
+		free(vars->key);
+	if(vars->new_var)
+		free(vars->new_var);
+	if(vars->value)
+		free(vars->value);
 }

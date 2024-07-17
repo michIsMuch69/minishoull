@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
+/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 12:39:55 by jean-michel       #+#    #+#             */
-/*   Updated: 2024/07/16 12:40:43 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/07/17 12:25:24 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char    *create_unquoted_var(char *key, char *value);
 char    *create_var_without_equals(char *key);
 int     process_full_entry(t_vars *vars, t_data *data, t_table *export, int i);
 int     process_unquoted_key(t_vars *vars, t_data *data, t_table *export, int i);
+void	free_vars(t_vars *vars);
 
 /*===========================builtins_utils.c===============================*/
 
