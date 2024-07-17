@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 09:23:55 by jean-michel       #+#    #+#             */
-/*   Updated: 2024/07/17 17:05:12 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/17 17:31:39 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,24 @@ char *create_var_without_equals(char *key)
 void free_vars(t_vars *vars)
 {
     if (vars->equal_pos)
+    {
         free(vars->equal_pos);
+        vars->equal_pos = NULL;   
+    }
     if (vars->key)
+    {
         free(vars->key);
+        vars->key = NULL;
+    }
     if (vars->new_var)
+    {
         free(vars->new_var);
+        vars->new_var = NULL;        
+    }
     if (vars->value)
+    {
         free(vars->value);
+        vars->value = NULL;
+        
+    }
 }

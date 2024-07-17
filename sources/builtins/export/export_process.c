@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 09:26:24 by jean-michel       #+#    #+#             */
-/*   Updated: 2024/07/17 17:07:42 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/17 17:32:08 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int process_env_var_for_export(t_vars *vars, char *env_var, char **export_tab, i
     {
         vars->key = ft_substr(env_var, 0, vars->equal_pos - env_var);
         if (!vars->key)
-            return 1;
+            return (1);
         vars->value = ft_strdup(vars->equal_pos + 1);
         if (!vars->value)
             return (free(vars->key), 1);
@@ -29,14 +29,12 @@ int process_env_var_for_export(t_vars *vars, char *env_var, char **export_tab, i
             return (free_vars(vars), 1);
         free(vars->key);
         free(vars->value);
-        vars->key = NULL;
-        vars->value = NULL;
     }
     else
     {
         vars->new_var = ft_strdup(env_var);
         if (!vars->new_var)
-            return (1); 
+            return (1);
     }
     export_tab[index] = vars->new_var;
     return (0);
@@ -49,7 +47,7 @@ int init_exported_env(t_data *data, t_table *export)
 
     export->tab = malloc((data->env.size + 1) * sizeof(char *));
     if (!export->tab)
-        return (1); 
+        return (1);
     i = 0;
     while (i < data->env.size)
     {
@@ -93,7 +91,7 @@ int ft_export(t_data *data, t_table *export)
     while (data->args.tab[i])
     {
         if (process_export_arg(i, data, export) != 0)
-            return 1;
+            return (1);
         i++;
     }
     return (0);
