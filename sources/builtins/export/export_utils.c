@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 09:23:55 by jean-michel       #+#    #+#             */
-/*   Updated: 2024/07/17 12:25:10 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/17 17:00:19 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,22 @@ char **add_to_table(t_table *table, char *new_var)
     table->size += 1;
     return (new_tab);
 }
+
 void update_table(char **table, int i, char *new_var)
 {
     free(table[i]);
     table[i] = ft_strdup(new_var);
 }
+
 char *create_quoted_var(char *key, char *value)
 {
     int     len;
     char    *new_var;
 
-    len = ft_strlen(key) + ft_strlen(value) + 4; // +4 pour =,"", and '\0
+    len = ft_strlen(key) + ft_strlen(value) + 4; // +4 for =,"", and '\0
     new_var = ft_calloc(len, sizeof(char)); 
     if (!new_var)
-        return NULL;
+        return (NULL);
     ft_strcpy(new_var, key);
     ft_strcat(new_var, "=\"");
     ft_strcat(new_var, value); 
@@ -64,7 +66,7 @@ char *create_unquoted_var(char *key, char *value)
     len = ft_strlen(key) + ft_strlen(value) + 2;
     new_var = ft_calloc(len, sizeof(char));
     if (!new_var)
-        return NULL;
+        return (NULL);
     ft_strcpy(new_var, key);
     ft_strcat(new_var, "=");
     ft_strcat(new_var, value);
@@ -86,12 +88,12 @@ char *create_var_without_equals(char *key)
 
 void free_vars(t_vars *vars)
 {
-	if (vars->equal_pos)
-		free(vars->equal_pos);
-	if(vars->key)
-		free(vars->key);
-	if(vars->new_var)
-		free(vars->new_var);
-	if(vars->value)
-		free(vars->value);
+    if (vars->equal_pos)
+        free(vars->equal_pos);
+    if (vars->key)
+        free(vars->key);
+    if (vars->new_var)
+        free(vars->new_var);
+    if (vars->value)
+        free(vars->value);
 }

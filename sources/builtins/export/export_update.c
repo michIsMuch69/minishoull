@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 09:25:24 by jean-michel       #+#    #+#             */
-/*   Updated: 2024/07/17 12:44:21 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/17 16:59:24 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int update_or_add_to_env(char *new_var, t_table *table)
     while (new_var[key_len] && new_var[key_len] != '=')
         key_len++;
     key = ft_substr(new_var, 0, key_len);
-	if (!key)
-		return (1);
+    if (!key)
+        return (1); // Memory allocation failure
     i = 0;
     while (i < table->size)
     {
@@ -66,8 +66,8 @@ int update_or_add_to_export(char *new_var, t_table *table)
     while (new_var[key_len] && new_var[key_len] != '=')
         key_len++;
     key = ft_substr(new_var, 0, key_len);
-	if (!key)
-		return (1);
+    if (!key)
+        return (1); // Memory allocation failure
     i = 0;
     while (i < table->size)
     {
@@ -87,27 +87,45 @@ int update_or_add_to_export(char *new_var, t_table *table)
 int process_full_entry(t_vars *vars, t_data *data, t_table *export, int i)
 {
     vars->key = ft_substr(data->args.tab[i], 0, vars->equal_pos - data->args.tab[i]);
-	if (!vars->key)
-		free(vars->key);
+    if (!vars->key)
+        return (1); // Memory allocation failure
     vars->value = ft_strdup(vars->equal_pos + 1);
-	if (!vars->value)
-		free_vars(vars);
+    if (!vars->value)
+    {
+        free(vars->key);
+        return (1); // Memory allocation failure
+    }
     if (!is_valid_identifier(vars->key))
     {
         ft_printf("export: '%s': not a valid identifier\n", data->args.tab[i]);
-        return (free_vars(vars), 1);
+        free_vars(vars);
+        return (1);
     }
     vars->new_var = create_quoted_var(vars->key, vars->value);
-	if (!vars->value)
-		free_vars(vars);
+    if (!vars->new_var)
+    {
+        free_vars(vars);
+        return (1); // Memory allocation failure
+    }
     if (update_or_add_to_export(vars->new_var, export) != 0)
-		return(1);
+    {
+        free(vars->new_var);
+        free_vars(vars);
+        return (1);
+    }
     free(vars->new_var);
     vars->new_var = create_unquoted_var(vars->key, vars->value);
-	if(!vars->new_var)
-		return (1);
-    if(update_or_add_to_env(vars->new_var, &data->env)!= 0)
-		return(1);
+    if (!vars->new_var)
+    {
+        free_vars(vars);
+        return (1); // Memory allocation failure
+    }
+    if (update_or_add_to_env(vars->new_var, &data->env) != 0)
+    {
+        free(vars->new_var);
+        free_vars(vars);
+        return (1);
+    }
     free(vars->new_var);
     free(vars->key); 
     free(vars->value);
@@ -117,8 +135,8 @@ int process_full_entry(t_vars *vars, t_data *data, t_table *export, int i)
 int process_uncomplete_entry(t_vars *vars, t_data *data, t_table *export, int i)
 {
     vars->key = ft_strdup(data->args.tab[i]);
-	if (!vars->key)
-		return (1);
+    if (!vars->key)
+        return (1); // Memory allocation failure
     if (!is_valid_identifier(vars->key))
     {
         ft_printf("export: '%s': not a valid identifier\n", data->args.tab[i]);
@@ -126,9 +144,17 @@ int process_uncomplete_entry(t_vars *vars, t_data *data, t_table *export, int i)
         return (1);
     }
     vars->new_var = create_var_without_equals(vars->key);
-	if (!vars->new_var)
-		return (free(vars->key), 1);
-    update_or_add_to_export(vars->new_var, export);
+    if (!vars->new_var)
+    {
+        free(vars->key);
+        return (1); // Memory allocation failure
+    }
+    if (update_or_add_to_export(vars->new_var, export) != 0)
+    {
+        free(vars->new_var);
+        free(vars->key);
+        return (1);
+    }
     free(vars->new_var);
     free(vars->key);
     return (0);
