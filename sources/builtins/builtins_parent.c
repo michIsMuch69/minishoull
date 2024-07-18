@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_parent.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
+/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 08:27:25 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/16 12:43:37 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/07/18 10:31:51 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,41 +15,33 @@
 int ft_cd(char **args, char **env)
 {
     char cwd[1024];
-    char *home = NULL;
-    char *oldpwd = NULL;
     char *new_dir = NULL;
-    char *temp;
 
-    temp = getcwd(cwd, sizeof(cwd));
+    if (getcwd(cwd, sizeof(cwd)) == NULL)
+        return (perror("getcwd"), -1);
     if (!args[1] || ft_strcmp(args[1], "~") == 0)
-    {
-        if (ft_getenv("HOME", env, &home) != 0)
-            return (ft_putstr_fd("cd: HOME not set\n", 2), -1);
-        new_dir = home;
+	{
+        if (ft_getenv("HOME", env, &new_dir) != 0)
+            return (ft_putstr_fd("cd: HOME not set\\n", 2), -1);
     }
-    else if (ft_strcmp(args[1], "-") == 0)
-    {
-        if (ft_getenv("OLDPWD", env, &oldpwd) != 0)
-            return (ft_putstr_fd("cd: OLDPWD not set\n", 2), -1);
-        new_dir = oldpwd;
-        ft_printf("%s\n", new_dir);  // Print the new directory after switching
+	else if (ft_strcmp(args[1], "-") == 0)
+	{
+        if (ft_getenv("OLDPWD", env, &new_dir) != 0)
+            return (ft_putstr_fd("cd: OLDPWD not set\\n", 2), -1);
+        ft_printf("%s\\n", new_dir); 
     }
-    else if (ft_strcmp(args[1], "..") == 0)
-        new_dir = "..";
-    else
+	else
         new_dir = args[1];
     if (chdir(new_dir) != 0)
-        return (perror("cd"), free(home), free(oldpwd), -1);
-    set_env("OLDPWD", temp, env);
-    temp = getcwd(cwd, sizeof(cwd) * sizeof(char));
-    if (temp != NULL)
-        set_env("PWD", temp, env);
+        return (perror("cd"), -1);
+    set_env("OLDPWD", cwd, env);
+    if (getcwd(cwd, sizeof(cwd)) != NULL)
+        set_env("PWD", cwd, env);
     else
         perror("getcwd");
-    free(home);
-    free(oldpwd);
     return (0);
 }
+
 
 
 //copie pour export, copie env.
