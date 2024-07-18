@@ -3,31 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_child.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
+/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 08:28:16 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/16 12:43:20 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/07/18 10:52:55 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int ft_echo(char **args)
+int ft_echo(t_data *data)
 {
     int flag;
     int i;
 
     flag = 0;
     i = 1;
-    if (args[1] && ft_strcmp(args[1], "-n") == 0)
+    if (data->args.tab[1] && ft_strcmp(data->args.tab[1], "-n") == 0)
     {
         flag = 1;
         i++;
     }
-    while (args[i])
+    while (data->args.tab[i])
     {
-        printf("%s", args[i]);
-        if (args[i + 1])
+        printf("%s", data->args.tab[i]);
+        if (data->args.tab[i + 1])
             ft_printf(" ");
         i++;
     }
@@ -36,14 +36,14 @@ int ft_echo(char **args)
     return (0);
 }
 
-int ft_env(char **env)
+int ft_env(t_data *data)
 {
 	int	i;
 
 	i = 0;
-    while (env[i])
+    while (data->env.tab[i])
 	{
-        ft_printf("%s\n", env[i]);
+        ft_printf("%s\n", data->env.tab[i]);
 		i++;
 	}
     return 0;

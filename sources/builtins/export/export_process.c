@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 09:26:24 by jean-michel       #+#    #+#             */
-/*   Updated: 2024/07/17 17:32:08 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/18 11:17:06 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,9 @@
 int process_env_var_for_export(t_vars *vars, char *env_var, char **export_tab, int index)
 {
     vars->equal_pos = ft_strchr(env_var, '=');
-
     if (vars->equal_pos)
     {
-        vars->key = ft_substr(env_var, 0, vars->equal_pos - env_var);
+        vars->key = ft_substr(env_var, 0, ft_strlen(env_var) - ft_strlen(vars->equal_pos));
         if (!vars->key)
             return (1);
         vars->value = ft_strdup(vars->equal_pos + 1);
@@ -42,8 +41,8 @@ int process_env_var_for_export(t_vars *vars, char *env_var, char **export_tab, i
 
 int init_exported_env(t_data *data, t_table *export)
 {
-    int i;
-    t_vars vars;
+    int	i;
+    t_vars	vars;
 
     export->tab = malloc((data->env.size + 1) * sizeof(char *));
     if (!export->tab)

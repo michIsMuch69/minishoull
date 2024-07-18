@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 12:39:55 by jean-michel       #+#    #+#             */
-/*   Updated: 2024/07/17 12:25:24 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/18 10:56:09 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 /*===========================builtins.c===============================*/
 
 void    ft_exit(t_data *data, int tab_size, int last_status);
-int     ft_cd(char **args, char **env);
+int     ft_cd(t_data *data);
 int     ft_pwd(void);
-int     ft_echo(char **args);
-int     ft_env(char **env);
-int     ft_unset(char *var, t_table *env);
+int     ft_echo(t_data *data);
+int     ft_env(t_data *data);
+int		ft_unset(t_data *data);
 void    set_env(char *key, char *value, char **env);
 
 /*===========================export===============================*/

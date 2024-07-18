@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 09:25:24 by jean-michel       #+#    #+#             */
-/*   Updated: 2024/07/17 17:33:10 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/18 10:36:15 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,9 @@ int update_or_add_to_export(char *new_var, t_table *table)
 
 int process_full_entry(t_vars *vars, t_data *data, t_table *export, int i)
 {
-    int key_len = ft_strlen(data->args.tab[i]) - ft_strlen(vars->equal_pos);
+    int key_len;
+	
+	key_len = ft_strlen(data->args.tab[i]) - ft_strlen(vars->equal_pos);
     vars->key = ft_substr(data->args.tab[i], 0, key_len);
     if (!vars->key)
         return (1);

@@ -6,37 +6,37 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 08:27:25 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/18 10:31:51 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/07/18 11:03:43 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int ft_cd(char **args, char **env)
+int ft_cd(t_data *data)
 {
     char cwd[1024];
     char *new_dir = NULL;
 
     if (getcwd(cwd, sizeof(cwd)) == NULL)
         return (perror("getcwd"), -1);
-    if (!args[1] || ft_strcmp(args[1], "~") == 0)
+    if (!data->args.tab[1] || ft_strcmp(data->args.tab[1], "~") == 0)
 	{
-        if (ft_getenv("HOME", env, &new_dir) != 0)
+        if (ft_getenv("HOME", data->env.tab, &new_dir) != 0)
             return (ft_putstr_fd("cd: HOME not set\\n", 2), -1);
     }
-	else if (ft_strcmp(args[1], "-") == 0)
+	else if (ft_strcmp(data->args.tab[1], "-") == 0)
 	{
-        if (ft_getenv("OLDPWD", env, &new_dir) != 0)
+        if (ft_getenv("OLDPWD", data->env.tab, &new_dir) != 0)
             return (ft_putstr_fd("cd: OLDPWD not set\\n", 2), -1);
         ft_printf("%s\\n", new_dir); 
     }
 	else
-        new_dir = args[1];
+        new_dir = data->args.tab[1];
     if (chdir(new_dir) != 0)
         return (perror("cd"), -1);
-    set_env("OLDPWD", cwd, env);
+    set_env("OLDPWD", cwd, data->env.tab);
     if (getcwd(cwd, sizeof(cwd)) != NULL)
-        set_env("PWD", cwd, env);
+        set_env("PWD", cwd, data->env.tab);
     else
         perror("getcwd");
     return (0);
@@ -49,34 +49,38 @@ int ft_cd(char **args, char **env)
 //si entree non complete, copie unisuqment dans export + error message print_error
 //si entree complete : ok pour copie dans env ++ export.
 
-int ft_unset(char *var, t_table *env)
+int ft_unset(t_data *data)
 {
     int i;
     int j;
+	int k;
 
-    i = 0;
-    j = 0;
-	printf("My Unset\n");
-	
-    while (env->tab[i])
+    i = 1; 
+    while (i < data->args.size)
     {
-        if (ft_strncmp(env->tab[i], var, ft_strlen(var)) == 0)
+        j = 0; 
+        while (data->env.tab[j])
         {
-            free(env->tab[i]);
-            j = i;
-            while (env->tab[j])
+            if (ft_strncmp(data->env.tab[j], data->args.tab[i], ft_strlen(data->args.tab[i])) == 0)
             {
-                env->tab[j] = env->tab[j + 1];
-                j++;
+                free(data->env.tab[j]);
+                k = j;
+                while (data->env.tab[k])
+                {
+                    data->env.tab[k] = data->env.tab[k + 1];
+                    k++;
+                }
+                data->env.tab[k] = NULL;
+                data->env.size--;
+                break;
             }
-    		env->tab[j + 1] = NULL;
-            env->size--;
-            return (0);
+            j++;
         }
         i++;
     }
-    return (1);
+    return 0; 
 }
+
 
 void	ft_exit(t_data *data, int tab_size, int last_status)
 {

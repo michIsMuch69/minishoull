@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_exec.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+        */
+/*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 08:39:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/07/16 12:43:16 by jean-michel      ###   ########.fr       */
+/*   Updated: 2024/07/18 11:02:30 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ int	exec_builtin_child(t_data *data, int tab_size, int i, int **fd)
 	}
 	else if (ft_strcmp(data->args.tab[0], "echo") == 0)
 	{
-		status = ft_echo(data->args.tab);
+		status = ft_echo(data);
 	}
 	else if (ft_strcmp(data->args.tab[0], "env") == 0)
 	{
 		ft_printf("My env\n");
-		status = ft_env(data->env.tab);
+		status = ft_env(data);
 	}
 	close_pipes(fd, tab_size - 1, i, 0);
 	while (i < tab_size)
@@ -47,7 +47,7 @@ int exec_builtin_parent(t_data *data, int tab_size, int i, int **fd)
 {
     if (ft_strcmp(data[i].args.tab[0], "cd") == 0)
     {
-        data[0].exit_status = ft_cd(data[i].args.tab, data[i].env.tab);
+        data[0].exit_status = ft_cd(data);
     }
     else if (ft_strcmp(data[i].args.tab[0], "exit") == 0)
     {
@@ -65,7 +65,7 @@ int exec_builtin_parent(t_data *data, int tab_size, int i, int **fd)
             data[0].exit_status = ft_export(data, &export); // export : (data, i tab_size);
     }
     else if (ft_strcmp(data[i].args.tab[0], "unset") == 0)
-        data[0].exit_status = ft_unset(data[i].args.tab[1], &(data[i].env));
+        data[0].exit_status = ft_unset(data);
     parent_routine(data, i, tab_size, fd);
     close_fds(data[i].in_out_fd);
     return (data[0].exit_status);
